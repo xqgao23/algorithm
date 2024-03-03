@@ -1,0 +1,1 @@
+algorithm write by c++.
