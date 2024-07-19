@@ -92,36 +92,21 @@ int main()
     }
 
     int maxk = 0;
-    bool start = true;
-    node pre = {0, 0};
+    node pre;
+    pre.y = p[maxn].front().y;
     for (int i = maxn; i > 0; i--) {
         if (k <= 0) {
             break;
         }
         for (auto t : p[i]) {
-            if (start) {
+            if (dis(pre, t) <= k) {
+                maxk += i;
+                k -= move(pre, t);
+                pre.x = t.x;
                 pre.y = t.y;
-                if (dis(pre, t) <= k) {
-                    start = false;
-                    maxk = i;
-                    k -= move(pre, t);
-                    pre.x = t.x;
-                    pre.y = t.y;
-                } else {
-                    k = 0;
-                    break;
-                }
-                
             } else {
-                if (dis(pre, t) <= k) {
-                    maxk += i;
-                    k -= move(pre, t);
-                    pre.x = t.x;
-                    pre.y = t.y;
-                } else {
-                    k = 0;
-                    break;
-                }
+                k = 0;
+                break;
             }
         }
     }
